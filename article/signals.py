@@ -50,4 +50,5 @@ def article_post_save_handler(sender, instance, created, **kwargs):
     """
     if created:
         update_article_word(instance)
+        update_word_common_status()
         update_related_articles(instance)
