@@ -21,6 +21,9 @@ class Article(models.Model):
         'self',
         blank=True
     )
+    word_frequencies = models.JSONField(
+        default=dict
+    )
 
     class Meta:
         db_table = "article"
