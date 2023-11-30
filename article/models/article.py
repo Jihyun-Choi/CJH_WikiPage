@@ -1,4 +1,5 @@
 from django.db import models
+from article.utils import calculate_word_frequencies
 
 
 class Article(models.Model):
@@ -21,8 +22,15 @@ class Article(models.Model):
         'self',
         blank=True
     )
+    word_frequencies = models.JSONField(
+        default=dict
+    )
 
     class Meta:
         db_table = "article"
         verbose_name = "Article"
         verbose_name_plural = "Articles"
+
+    def save(self, *args, **kwargs):
+        self.word_frequencies = calculate_word_frequencies(self.content)
+        super().save(*args, **kwargs)
